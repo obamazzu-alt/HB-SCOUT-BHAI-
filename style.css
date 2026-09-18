@@ -1,0 +1,866 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #030303;
+  color: white;
+}
+
+
+/* =================================
+   CARD
+================================= */
+
+.card-scene {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #000;
+}
+
+
+/* =================================
+   INSIDE
+================================= */
+
+.inside-card {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.inside-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.inside-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.38);
+}
+
+
+/* =================================
+   MESSAGE
+================================= */
+
+.message {
+  position: absolute;
+
+  z-index: 5;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: min(84%, 600px);
+
+  padding: 30px 20px;
+
+  text-align: center;
+
+  background: rgba(0, 0, 0, 0.82);
+
+  border: 2px solid #ff1010;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 0 15px red,
+    0 0 35px rgba(255, 0, 0, 0.45);
+}
+
+.message h1 {
+  font-family: Georgia, serif;
+
+  font-size: clamp(40px, 8vw, 76px);
+
+  font-style: italic;
+
+  color: white;
+
+  text-shadow:
+    0 0 8px red,
+    0 0 20px red;
+
+  margin-bottom: 8px;
+}
+
+.message h2 {
+  font-size: clamp(25px, 5vw, 40px);
+
+  color: #ff1825;
+
+  text-shadow: 0 0 10px red;
+
+  margin-bottom: 20px;
+}
+
+.message p {
+  font-size: clamp(15px, 3vw, 21px);
+
+  line-height: 1.55;
+
+  margin: 10px 0;
+}
+
+.message .sorry {
+  font-weight: bold;
+}
+
+.message .extra {
+  color: #ffb0b0;
+
+  font-weight: bold;
+}
+
+
+/* =================================
+   FRONT COVER
+================================= */
+
+.front-cover {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 20;
+
+  display: flex;
+
+  perspective: 1600px;
+}
+
+.cover-left,
+.cover-right {
+  position: relative;
+
+  width: 50%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #080808;
+
+  transition:
+    transform 1.25s cubic-bezier(0.7, 0, 0.2, 1);
+
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+}
+
+.cover-left img,
+.cover-right img {
+  position: absolute;
+
+  top: 0;
+
+  width: 200%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.cover-left img {
+  left: 0;
+}
+
+.cover-right img {
+  right: 0;
+}
+
+
+/* OPEN CARD ANIMATION */
+
+.card-scene.opened .cover-left {
+  transform:
+    translateX(-110%)
+    rotateY(-8deg);
+}
+
+.card-scene.opened .cover-right {
+  transform:
+    translateX(110%)
+    rotateY(8deg);
+}
+
+
+/* =================================
+   OPEN BUTTON
+================================= */
+
+.open-screen {
+  position: absolute;
+
+  z-index: 30;
+
+  left: 50%;
+  bottom: 8%;
+
+  transform: translateX(-50%);
+
+  width: 100%;
+
+  text-align: center;
+
+  transition: opacity 0.5s ease;
+}
+
+.open-screen.hidden {
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.open-screen p {
+  margin-top: 12px;
+
+  font-size: 14px;
+}
+
+
+/* =================================
+   BUTTONS
+================================= */
+
+button {
+  font-family: inherit;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-weight: bold;
+}
+
+.open-btn,
+.main-btn {
+  padding: 14px 26px;
+
+  font-size: 17px;
+
+  border-radius: 50px;
+
+  border: 2px solid #ff3030;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff1616,
+      #850000
+    );
+
+  box-shadow:
+    0 0 12px red;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.open-btn {
+  padding: 16px 32px;
+
+  font-size: 19px;
+}
+
+.open-btn:hover,
+.main-btn:hover {
+  transform: scale(1.06);
+
+  box-shadow:
+    0 0 25px red;
+}
+
+button:active {
+  transform: scale(0.94);
+}
+
+
+/* =================================
+   MUSIC
+================================= */
+
+.music-btn {
+  position: fixed;
+
+  z-index: 100;
+
+  right: 18px;
+  bottom: 18px;
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  border: 2px solid red;
+
+  background: #050505;
+
+  font-size: 23px;
+
+  box-shadow:
+    0 0 15px red;
+}
+
+
+/* =================================
+   CLOSE
+================================= */
+
+.close-btn {
+  display: none;
+
+  position: fixed;
+
+  z-index: 110;
+
+  top: 15px;
+  right: 18px;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  border: 2px solid red;
+
+  background: #050505;
+
+  color: white;
+
+  font-size: 28px;
+}
+
+.close-btn.show {
+  display: block;
+}
+
+
+/* =================================
+   GAME
+================================= */
+
+.game {
+  display: none;
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 80;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #450000,
+      #080808 70%
+    );
+}
+
+.game.show {
+  display: flex;
+}
+
+.game-box {
+  width: min(90vw, 600px);
+
+  min-height: 470px;
+
+  padding: 30px 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: rgba(0, 0, 0, 0.82);
+
+  border: 2px solid red;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 0 30px rgba(255, 0, 0, 0.65);
+}
+
+.game-stage {
+  display: none;
+
+  width: 100%;
+
+  animation: stageAppear 0.6s ease;
+}
+
+.game-stage.active {
+  display: block;
+}
+
+@keyframes stageAppear {
+
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+.game-stage h2 {
+  color: #ff2020;
+
+  font-size: clamp(28px, 7vw, 45px);
+
+  text-shadow: 0 0 15px red;
+
+  margin-bottom: 25px;
+}
+
+.game-stage p {
+  font-size: 18px;
+
+  line-height: 1.5;
+
+  margin: 18px 0;
+}
+
+
+/* =================================
+   CANDLE
+================================= */
+
+.candle-area {
+  position: relative;
+
+  width: 120px;
+  height: 190px;
+
+  margin: 10px auto 5px;
+}
+
+.flame {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 65px;
+
+  animation:
+    flameMove 0.45s infinite alternate;
+}
+
+.flame.off {
+  animation:
+    blowOut 0.7s forwards;
+}
+
+@keyframes flameMove {
+
+  from {
+    transform:
+      translateX(-50%)
+      scale(1)
+      rotate(-3deg);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      scale(1.12)
+      rotate(3deg);
+  }
+
+}
+
+@keyframes blowOut {
+
+  0% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform:
+      translateX(-50%)
+      scale(1.4);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(0);
+  }
+
+}
+
+.candle-stick {
+  position: absolute;
+
+  left: 45px;
+  bottom: 28px;
+
+  width: 30px;
+  height: 110px;
+
+  border-radius: 6px;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #ff2020 0,
+      #ff2020 8px,
+      white 8px,
+      white 16px
+    );
+
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.candle-base {
+  position: absolute;
+
+  left: 25px;
+  bottom: 5px;
+
+  width: 70px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #b80000;
+
+  border: 2px solid #ff4040;
+}
+
+.timer {
+  width: 45px;
+  height: 45px;
+
+  margin: 15px auto;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 2px solid red;
+
+  background: #080808;
+
+  box-shadow: 0 0 10px red;
+}
+
+.timer span {
+  font-size: 20px;
+
+  color: #ff3030;
+
+  font-weight: bold;
+}
+
+
+/* =================================
+   CAKE
+================================= */
+
+.cake {
+  position: relative;
+
+  width: 250px;
+  height: 200px;
+
+  margin: 5px auto 15px;
+}
+
+.cake-candle {
+  position: absolute;
+
+  z-index: 5;
+
+  top: -18px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 45px;
+}
+
+.cake-top {
+  position: absolute;
+
+  z-index: 3;
+
+  top: 35px;
+  left: 25px;
+
+  width: 200px;
+  height: 65px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #682d18;
+
+  border: 4px solid #a94d2c;
+
+  font-size: 38px;
+}
+
+.cake-cream {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 82px;
+  left: 25px;
+
+  width: 200px;
+  height: 25px;
+
+  border-radius: 50%;
+
+  background: #ffe9d8;
+}
+
+.cake-middle {
+  position: absolute;
+
+  top: 82px;
+  left: 25px;
+
+  width: 200px;
+  height: 60px;
+
+  background: #4b1b0d;
+
+  border-left: 4px solid #8e4025;
+
+  border-right: 4px solid #8e4025;
+}
+
+.cake-bottom {
+  position: absolute;
+
+  bottom: 0;
+  left: 25px;
+
+  width: 200px;
+  height: 70px;
+
+  border-radius: 0 0 18px 18px;
+
+  background: #321008;
+
+  border: 4px solid #79321b;
+}
+
+
+/* =================================
+   GIFT
+================================= */
+
+.gift {
+  position: relative;
+
+  width: 220px;
+  height: 190px;
+
+  margin: 0 auto 10px;
+}
+
+.gift-body {
+  position: absolute;
+
+  left: 35px;
+  bottom: 5px;
+
+  width: 150px;
+  height: 115px;
+
+  background: #c40000;
+
+  border: 3px solid #ff4040;
+
+  border-radius: 5px;
+
+  box-shadow: 0 0 15px rgba(255,0,0,.5);
+}
+
+.gift-lid {
+  position: absolute;
+
+  z-index: 3;
+
+  left: 25px;
+  top: 40px;
+
+  width: 170px;
+  height: 42px;
+
+  background: #ed0000;
+
+  border: 3px solid #ff5050;
+
+  border-radius: 7px;
+}
+
+.gift-ribbon {
+  position: absolute;
+
+  z-index: 5;
+
+  left: 98px;
+  top: 40px;
+
+  width: 25px;
+  height: 115px;
+
+  background: #ffd700;
+}
+
+.gift-bow-left,
+.gift-bow-right {
+  position: absolute;
+
+  z-index: 6;
+
+  top: 20px;
+
+  width: 55px;
+  height: 38px;
+
+  background: #ffd700;
+
+  border-radius: 50%;
+}
+
+.gift-bow-left {
+  left: 58px;
+
+  transform: rotate(25deg);
+}
+
+.gift-bow-right {
+  right: 58px;
+
+  transform: rotate(-25deg);
+}
+
+
+/* =================================
+   TOY
+================================= */
+
+.toy {
+  font-size: 125px;
+
+  margin: 5px auto 15px;
+
+  animation:
+    toyFloat 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes toyFloat {
+
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-12px);
+  }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+  .message {
+    width: 84%;
+
+    padding: 25px 15px;
+  }
+
+  .message h1 {
+    font-size: 40px;
+  }
+
+  .message h2 {
+    font-size: 25px;
+  }
+
+  .message p {
+    font-size: 15px;
+  }
+
+  .game-box {
+    min-height: 450px;
+
+    padding: 25px 15px;
+  }
+
+  .game-stage p {
+    font-size: 16px;
+  }
+
+  .open-btn {
+    font-size: 16px;
+
+    padding: 14px 24px;
+  }
+
+}
